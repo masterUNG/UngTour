@@ -8,10 +8,11 @@ class Authen extends StatefulWidget {
   _AuthenState createState() => _AuthenState();
 }
 
-class _AuthenState extends State<Authen> {
+class _AuthenState extends State<Authen> with WidgetsBindingObserver {
   // Field
 
   // Method
+
   Widget signInButton() {
     return RaisedButton(
       color: MyStyle().textColor,
@@ -90,6 +91,41 @@ class _AuthenState extends State<Authen> {
         letterSpacing: 4.0,
       )),
     );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+
+    switch (state) {
+      case AppLifecycleState.inactive:
+        print('###### State inactive ######');
+        break;
+      case AppLifecycleState.paused:
+        print('###### State paused ######');
+        break;
+      case AppLifecycleState.resumed:
+        print('###### State resume ######');
+        break;
+      default:
+    }
+  }
+
+  // Action After RunApp
+  @override
+  void initState() {
+    super.initState();
+    print('######### initState Work ##########');
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  // Action Before Pause
+  @override
+  void dispose() {
+    super.dispose();
+    print('######### dispost Work ##########');
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
